@@ -1,3 +1,4 @@
+<div class="h1 bg-success">Clientes</div>
 <div class="container">
     <div class="row">
         <div class="col">
@@ -33,7 +34,7 @@
 
 
         </div>
-        <div class="col">
+        <div class="col overflow-auto">
             <div class="card" *ngFor="let item of arrCustomers">
                 <div class="card-body">
                     <h5 class="card-title">{{item.First_Name}} {{item.Last_Name}}</h5>
@@ -51,7 +52,7 @@
         <div class="input-group mb-3">
             <input type="text" class="form-control" [(ngModel)]="dato" aria-label="Recipient's username" aria-describedby="button-addon2">
             <div class="input-group-append">
-                <select [(ngModel)]="filtro">
+                <select [(ngModel)]="filtro" class="form-control">
                     <option value="id">Id</option>
                     <option value="nombre" >Nombre</option>
                     <option value="pais">Pais</option>
@@ -79,7 +80,7 @@
         <div class="input-group mb-3">
             <input type="text" class="form-control" [(ngModel)]="dato2" aria-label="Recipient's username" aria-describedby="button-addon2">
             <div class="input-group-append">
-                <select [(ngModel)]="filtro2">
+                <select [(ngModel)]="filtro2" class="form-control">
                         <option value="id">Id</option>
                         <option value="nombre" >Nombre</option>
                     </select>
@@ -96,5 +97,96 @@
                 Datos no encontrados
             </div>
         </div>
+        <div class="h1 bg-success">Rentas</div>
+        <div class="row">
+            <div class="col overflow-auto">
+                <div class="card" *ngFor="let item of casas">
+                    <h5 class="card-title">{{item.name}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{item.property_type}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Precio: {{item.price}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Camas: {{item.beds}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Baños: {{item.bathrooms}}</h6>
+                </div>
 
-    </div>
+            </div>
+            <div class="col">
+                <form #myForm2="ngForm" (ngSubmit)="rentar(myForm2)">
+                    <div class="form-group">
+                        <label for="">Cliente</label>
+                        <select [(ngModel)]="idCustomer" name="idc" ngModel class="form-control">
+                            <option *ngFor="let item of arrCustomers" value={{item._id}}>{{item.First_Name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Propiedad</label>
+                        <select class="form-control" [(ngModel)]="idListingAndReview" ngModel name="idl">
+                            <option *ngFor="let item of casas" value={{item._id}}>{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Fecha de renta</label>
+                        <input type="date" [(ngModel)]="rentalDate" ngModel name="da" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Fecha de devolución</label>
+                        <input type="date" [(ngModel)]="returnDate" ngModel name="datee" class="form-control">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mx-2">Rentar</button>
+                </form>
+                <div class="h1 bg-success">Casas Rentadas</div>
+                <div class="container overflow-scroll ">
+                    <div class="card" *ngFor="let item of casasR">
+                        <h5 class="card-title">{{item.idListingAndReview.name}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{item.idListingAndReview.property_type}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">{{item.idCustomer.First_Name}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">{{item.idCustomer.Last_Name}}</h6>
+                    </div>
+
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <select [(ngModel)]="filtro3" class="form-control">
+                            <option *ngFor="let item of pro2"  value="{{item}}">{{item}}</option>
+                        </select>
+                        <button class="btn btn-outline-primary" type="button" id="button-addon2" (click)="findpro(filtro3)">Buscar</button>
+                    </div>
+                </div>
+                <div *ngIf="finddata2==true">
+                    <div class="card" *ngFor="let item of pro">
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{item.property_type}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Precio: {{item.price}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Camas: {{item.beds}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Baños: {{item.bathrooms}}</h6>
+                    </div>
+                </div>
+                <div *ngIf="finddata2==false">
+                    <div class="alert-danger">
+                        Datos no encontrados
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="">minimo</label>
+                        <input type="text" [(ngModel)]="min" ngModel name="min" class="form-control">
+                    </div>
+                    <div class=" col ">
+                        <label for=" ">maximo</label>
+                        <input type="text " [(ngModel)]="max " ngModel name="max " class="form-control ">
+                    </div>
+                </div>
+                <button class="btn btn-primary" (click)="lawealoca()">Buscar</button>
+                <div class="card" *ngFor="let item of precio">
+                    <h5 class="card-title">{{item.name}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{item.property_type}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Precio: {{item.price}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Camas: {{item.beds}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Baños: {{item.bathrooms}}</h6>
+                </div>
+
+            </div>
+
+
+
+        </div>

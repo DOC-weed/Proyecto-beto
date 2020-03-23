@@ -74,7 +74,7 @@ app.get('/get/:desde', (req, res) => {
     let desde = req.params.desde || 0;
     desde = Number(desde);
 
-    ListingAndReview.find({ rentada: false }).skip(desde).limit(10)
+    ListingAndReview.find({ rentada: false }).skip(desde).limit(20)
         .then((resp) => {
             return res.status(200).json({
                 ok: true,
@@ -134,19 +134,20 @@ app.get('/getproperty/:propiedad', (req, res) => {
 });
 
 app.get('/mostrar', (req, res) => {
-    Rental.find({ rented: true }).populate('idCustomer').populate('idListingAndReview').then((resp) => {
-        return res.status(200).json({
-            ok: true,
-            msg: 'mostrando rentas',
-            resp
+    Rental.find({ rented: true }).populate('idCustomer').populate('idListingAndReview').sort({ idCustomer: 1 }).skip(0)
+        .limit(10).then((resp) => {
+            return res.status(200).json({
+                ok: true,
+                msg: 'mostrando rentas',
+                resp
+            });
+        }).catch((err) => {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Ocurrio un error',
+                err
+            });
         });
-    }).catch((err) => {
-        return res.status(400).json({
-            ok: false,
-            msg: 'Ocurrio un error',
-            err
-        });
-    });
 
 });
 

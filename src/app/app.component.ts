@@ -15,22 +15,49 @@ export class AppComponent implements OnInit{
       District: string; 
       First_Name: string;
       Last_Name: string;
+      idCustomer: number;
+      idListingAndReview: string;
+      rentalDate:Date;
+      returnDate:Date;
       customers:any;
+      casas: any;
+      casasR: any;
+      pro:any;
+      pro2:any;
       finddata:boolean;
+      finddata2:boolean;
       deletedate: boolean;
       dato: any;
       dato2: any;
+      dato3: any;
+      num=0;
+      precio:any;
+      min:number;
+      max:number;
       editcustomer: any;
       id: number;
       filtro:any;
       filtro2: any;
-  arrCustomers: Array<any>;
+      filtro3: any;
+      arrCustomers: Array<any>;
+  
 
   constructor(public service: ServiceService){
   }
   ngOnInit() {
     this.obtenerCustomer();
+    this.obtenercasas();
+    this.getpro();
+    this.obtenercasasR();
 
+  }
+  lawealoca(){
+    this.service.obtenerporPrecio(this.min, this.max, this.num).then((res: any)=>{
+      this.precio=res.resp;
+      console.log(res);
+    }).catch((err)=>{
+      console.log(err);
+    });
   }
   guardar(myform: NgForm){ 
     let customer: any = {
@@ -55,6 +82,42 @@ export class AppComponent implements OnInit{
       this.arrCustomers = customers.customers;
       console.log(customers);
     }).catch(err => {
+      console.log(err);
+    });
+  }
+  obtenercasas() {
+    this.service.obtenerRentasDisponibles(this.num).then((res: any) =>{
+      this.casas = res.resp;
+      console.log(res);
+    }).catch((err)=>{
+      console.log(err);
+    });
+  }
+  obtenercasasR(){
+
+    this.service.obtenerRentasdeCustomers().then((rentas: any) => {
+      this.casasR = rentas.resp;
+      console.log(rentas);
+    }).catch((err)=>{
+      console.log(err);
+    });
+    
+  }
+  findpro(filtro3: any){
+    this.service.obtenerRentasdeCustomers().then((resp: any)=>{
+      this.pro =resp.resp;
+      console.log(resp);
+      this.finddata2=true;
+    }).catch((err)=>{
+      console.log(err);
+      this.finddata2=false;
+    });
+  }
+  getpro(){
+    this.service.getProperties().then((pro:any)=>{
+      this.pro2=pro.resp;
+      console.log(pro);
+    }).catch((err) =>{
       console.log(err);
     });
   }
@@ -150,7 +213,7 @@ borraridnombre(dato2: any) {
             console.log(resp);
             this.deletedate = true;
             this.obtenerCustomer();
-          this.dato2 = null;
+            this.dato2 = null;
           }).catch((err) => {
             console.log(err);
             this.deletedate = false;
@@ -159,17 +222,34 @@ borraridnombre(dato2: any) {
     }
 }
 }
+rentar(myform2: NgForm) {
+  let renta: any ={
+      idCustomer: this.idCustomer,
+      idListingAndReview: this.idListingAndReview,
+      rentalDate: this.rentalDate,
+      returnDate: this.returnDate
+  };
+  this.service.resgistrarRenta(renta).then((resp)=>{
+    console.log(resp);
+    this.obtenercasas();
+    myform2.reset();
+  }).catch((err) => {
+    console.log(err);
+  });
+}
 
 }
 
-// Agregar una colección llamada Customers con los siguientes atributos obligatorios que deben ser validados mediante un objeto validator.
 
 
 
-// El sistema debe permitir realizar rentas de propiedades, un Cliente puede rentar varias propiedades en diferente momentos. Seleccione el modelo de relación que mejor le convenga (embedido o relación).
-// El sistema debe permitir obtener el reporte de propiedades rentadas por los clientes.
-// El sistema debe permitir obtener el reporte de propiedades en base al tipo de propiedad
+
+
+
+
+
 // El sistema debe permitir el mostrar datos generales de propiedades basados en rangos de precio. 
-// El sistema debe permitir el borrado lógico de Clientes. Lo clientes no se borrarán, sólo se marcan como activos o inactivos. 
-// El sistema deberá permitir generar respaldos en demanda de todas las colecciones de la base de datos.
+
+
+
 // El sistema deberá estar almacenado en el sistema de control de versiones GitHub, deberá enviar la liga que permita clonar el proyecto a las direcciones: betordz@gmail.com y pipegarcia494@gmail.com a más tardar el martes 17 a las 14:00. 

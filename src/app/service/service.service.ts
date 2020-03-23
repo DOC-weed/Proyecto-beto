@@ -59,7 +59,7 @@ export class ServiceService {
     return this.http.get(`${this.Url}rentals/getprice/${minimo}/${maximo}/${num}`).toPromise();
   }
 
-  obtenerRentasdeCustomers(){
+  obtenerRentasdeCustomers() {
     return this.http.get(`${this.Url}rentals/mostrar`).toPromise();
   }
   getProperties(){

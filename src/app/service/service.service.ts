@@ -52,7 +52,7 @@ export class ServiceService {
     return this.http.get(`${this.Url}rentals/get/rentadas/${desde}`).toPromise();
   }
   obtenerTypoPropiedad(propiedad: any){
-    return this.http.get(`${this.Url}rentals/getproperty/${propiedad}`).toPromise();
+    return this.http.get(`${this.Url}rentals/obtener/propiedad/${propiedad}`).toPromise();
   }
 
   obtenerporPrecio(minimo: Number, maximo: Number, num: Number){

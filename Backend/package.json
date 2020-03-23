@@ -1,0 +1,38 @@
+{
+  "name": "basededatos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "node server/server.js"
+  },
+  "engines": {
+    "node": "10.16.3"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
+    "jsonwebtoken": "^8.5.1",
+    "mongobackup": "^0.3.5",
+    "mongodb": "^3.5.4",
+    "mongoose": "^5.7.7",
+    "mongoose-sequence": "^5.2.2",
+    "mongoose-unique-validator": "^2.0.3",
+    "underscore": "^1.9.1",
+    "uniqid": "^5.1.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peckas13/backend-mongo-crud-cloudDBs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/peckas13/backend-mongo-crud-cloudDBs/issues"
+  },
+  "homepage": "https://github.com/peckas13/backend-mongo-crud-cloudDBs#readme",
+  "description": ""
+}

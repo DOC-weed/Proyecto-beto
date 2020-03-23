@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form #myForm="ngForm" (ngSubmit)="guardar(myForm)">
+                <div class="form-group">
+                    <label for="">Nombre</label>
+                    <input type="text" [(ngModel)]="First_Name" name="first" ngModel class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Apeido</label>
+                    <input type="text" [(ngModel)]="Last_Name" name="last" ngModel class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">País</label>
+                    <input type="text" ngModel [(ngModel)]="Country" name="coun" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Ciudad</label>
+                    <input type="text" [(ngModel)]="City" name="cit" ngModel class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Distrito</label>
+                    <input type="text" [(ngModel)]="District" name="dist" ngModel class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Dirección</label>
+                    <input type="text" [(ngModel)]="Address" name="add" ngModel class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary mx-2">Guardar</button>
+                <button type="button" class="btn btn-primary" (click)="update(myForm)">Actualizar</button>
+
+            </form>
+
+
+        </div>
+        <div class="col">
+            <div class="card" *ngFor="let item of arrCustomers">
+                <div class="card-body">
+                    <h5 class="card-title">{{item.First_Name}} {{item.Last_Name}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{item.Country}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">{{item.City}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">{{item.District}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">{{item.Address}}</h6>
+                    <button class="btn btn-primary" (click)="edit(item._id)">Editar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" [(ngModel)]="dato" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <select [(ngModel)]="filtro">
+                    <option value="id">Id</option>
+                    <option value="nombre" >Nombre</option>
+                    <option value="pais">Pais</option>
+                </select>
+                <button class="btn btn-outline-primary" type="button" id="button-addon2" (click)="findbyeverything(dato)">Buscar</button>
+            </div>
+        </div>
+        <div *ngIf="finddata==true">
+            <div class="card" *ngFor="let item of customers">
+                <h5 class="card-title">{{item.First_Name}} {{item.Last_Name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{item.Country}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{item.City}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{item.District}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{item.Address}}</h6>
+            </div>
+        </div>
+        <div *ngIf="finddata==false">
+            <div class="alert-danger">
+                Datos no encontrados
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" [(ngModel)]="dato2" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <select [(ngModel)]="filtro2">
+                        <option value="id">Id</option>
+                        <option value="nombre" >Nombre</option>
+                    </select>
+                <button class="btn btn-outline-danger" type="button" id="button-addon2" (click)="borraridnombre(dato2)">Borrar</button>
+            </div>
+        </div>
+        <div *ngIf="deletedate==true">
+            <div class="alert-success">
+                Datos elimandos
+            </div>
+        </div>
+        <div *ngIf="deletedate==false">
+            <div class="alert-danger">
+                Datos no encontrados
+            </div>
+        </div>
+
+    </div>
